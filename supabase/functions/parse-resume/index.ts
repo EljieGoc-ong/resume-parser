@@ -386,11 +386,36 @@ Deno.serve(async (req) => {
       ? body.text
       : undefined;
 
+    let resumeId: string | null = null;
+    if (supabase) {
+      const { data, error } = await supabase.from("resumes").insert({
+        candidate_name: body.candidateName ?? (parsed.structured as { name?: string })?.name ?? null,
+        job_id: body.jobId ?? null,
+        created_by: body.userId ?? null,
+        file_bucket: body.bucket ?? null,
+        file_path: body.filePath ?? null,
+        raw_text:
+          rawText && rawText.length > MAX_TEXT_STORE
+            ? rawText.slice(0, MAX_TEXT_STORE)
+            : rawText ?? null,
+        parsed,
+        parser_version: PARSER_VERSION,
+        status: "parsed",
+      }).select("id").single();
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+      } else {
+        resumeId = data?.id ?? null;
+      }
+    }
+
     return respond(200, {
       parsed,
       rawText,
+      resumeId,
       jobId: parsed.jobId ?? null,
-      // parserVersion: PARSER_VERSION,
+      parserVersion: PARSER_VERSION,
     });
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Unknown error";

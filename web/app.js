@@ -344,7 +344,7 @@ async function handleSubmit(event) {
     setStatus("Preparing request...", "info");
 
     if (file) {
-      setStatus("Uploading to Supabase Storage...", "info");
+      setStatus("Procesing data for extraction...", "info");
       const storageRef = await uploadFile(file);
       payload.bucket = storageRef.bucket;
       payload.filePath = storageRef.filePath;
