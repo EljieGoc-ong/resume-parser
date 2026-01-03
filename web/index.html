@@ -59,20 +59,7 @@
     <section class="card">
       <h2>Submit a resume</h2>
       <form id="parse-form">
-        <div class="field">
-          <label for="candidateName">Candidate name</label>
-          <input id="candidateName" name="candidateName" type="text" placeholder="Jane Doe" />
-        </div>
-        <div class="field-grid">
-          <div class="field">
-            <label for="jobId">Job ID (optional)</label>
-            <input id="jobId" name="jobId" type="text" placeholder="role-123" />
-          </div>
-          <div class="field">
-            <label for="userId">User ID (for RLS)</label>
-            <input id="userId" name="userId" type="text" placeholder="auth user id" />
-          </div>
-        </div>
+       
 
         <div class="divider">Upload a file (PDF/text) or paste text below</div>
 
@@ -98,6 +85,42 @@
         <button id="copyResult" class="ghost">Copy JSON</button>
       </div>
       <pre id="result" class="code-block">Waiting for response...</pre>
+
+      <div class="structured-grid" id="structuredGrid" style="display:none;">
+        <h2>Resume Parsed Result</h2>
+        <div class="card section">
+          <h3>Profile</h3>
+          <p><strong>Name:</strong> <span id="s-name">—</span></p>
+          <p><strong>Email:</strong> <span id="s-email">—</span></p>
+          <p><strong>Phone:</strong> <span id="s-phone">—</span></p>
+          <p><strong>Location:</strong> <span id="s-location">—</span></p>
+          <p><strong>Summary:</strong><br><span id="s-summary">—</span></p>
+        </div>
+        <div class="card section">
+          <h3>Skills</h3>
+          <ul id="s-skills"><li>—</li></ul>
+        </div>
+        <div class="card section">
+          <h3>Experience</h3>
+          <div id="s-experience">—</div>
+        </div>
+        <div class="card section">
+          <h3>Education</h3>
+          <div id="s-education">—</div>
+        </div>
+        <div class="card section">
+          <h3>Projects</h3>
+          <div id="s-projects">—</div>
+        </div>
+        <div class="card section">
+          <h3>Certifications</h3>
+          <ul id="s-certifications"><li>—</li></ul>
+        </div>
+        <div class="card section">
+          <h3>Links</h3>
+          <ul id="s-links"><li>—</li></ul>
+        </div>
+      </div>
     </section>
 
     <section class="card">

@@ -210,3 +210,31 @@ textarea {
   margin-bottom: 12px;
 }
 
+.structured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.structured-grid .section {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.structured-grid h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.structured-grid ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.structured-grid p {
+  margin: 4px 0;
+}
+
