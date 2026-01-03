@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Parser UI</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <!--
+    Set your Supabase project values here.
+    For local dev with `supabase start`, the default URL is usually
+    http://localhost:54321 and the anon key is printed by the CLI.
+  -->
+  <script>
+    window.__APP_CONFIG__ = {
+      // Example: https://<project-ref>.supabase.co
+      supabaseUrl: "https://ljvoozqquaqaowoakldr.supabase.co",
+      // Use your project anon key (never the service role key) for the client.
+      supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxqdm9venFxdWFxYW93b2FrbGRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc0MTgzNzksImV4cCI6MjA4Mjk5NDM3OX0.wN_F3ygYqHeuYXITEmoW7HNoUgqVF8dhGg3TBl5Ix0w",
+      storageBucket: "resume-parser",
+      functionSlug: "parse-resume",
+    };
+  </script>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div>
+        <p class="eyebrow">Supabase Edge Function demo</p>
+        <h1>Resume Parser</h1>
+        <p class="muted">Uploads a resume (text or PDF) to Supabase Storage and calls the <code>parse-resume</code> function to store structured data.</p>
+      </div>
+      <div class="badge">Client Demo</div>
+    </header>
+
+    <section class="card">
+      <h2>Configuration</h2>
+      <p class="muted">Update the values in <code>window.__APP_CONFIG__</code> inside this HTML file to point at your project.</p>
+      <div class="env-grid" id="env-display">
+        <div>
+          <p class="label">Supabase URL</p>
+          <code id="env-url">not set</code>
+        </div>
+        <div>
+          <p class="label">Anon key</p>
+          <code id="env-key">not set</code>
+        </div>
+        <div>
+          <p class="label">Bucket</p>
+          <code id="env-bucket">not set</code>
+        </div>
+        <div>
+          <p class="label">Function</p>
+          <code id="env-function">parse-resume</code>
+        </div>
+      </div>
+      <p class="hint">Tip: keep anon keys in local files only; do not commit project secrets.</p>
+    </section>
+
+    <section class="card">
+      <h2>Submit a resume</h2>
+      <form id="parse-form">
+        <div class="field">
+          <label for="candidateName">Candidate name</label>
+          <input id="candidateName" name="candidateName" type="text" placeholder="Jane Doe" />
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="jobId">Job ID (optional)</label>
+            <input id="jobId" name="jobId" type="text" placeholder="role-123" />
+          </div>
+          <div class="field">
+            <label for="userId">User ID (for RLS)</label>
+            <input id="userId" name="userId" type="text" placeholder="auth user id" />
+          </div>
+        </div>
+
+        <div class="divider">Upload a file (PDF/text) or paste text below</div>
+
+        <div class="field">
+          <label for="fileInput">Resume file</label>
+          <input id="fileInput" name="file" type="file" accept=".pdf,.txt,text/plain" />
+          <p class="muted">Supported here: PDF and plain text. Convert DOC/DOCX to PDF or text first.</p>
+        </div>
+
+        <div class="field">
+          <label for="resumeText">Resume text</label>
+          <textarea id="resumeText" name="text" rows="10" placeholder="Paste resume text if not uploading a file"></textarea>
+        </div>
+
+        <button type="submit" class="primary">Parse resume</button>
+      </form>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Parsed result</h2>
+        <button id="copyResult" class="ghost">Copy JSON</button>
+      </div>
+      <pre id="result" class="code-block">Waiting for response...</pre>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Last payload sent</h2>
+        <button id="copyPayload" class="ghost">Copy payload</button>
+      </div>
+      <pre id="payload" class="code-block">No request yet.</pre>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+
